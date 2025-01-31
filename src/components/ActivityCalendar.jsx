@@ -4,14 +4,14 @@ const ActivityCalendar = ({ onDateSelect, selectedDate }) => {
   const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   
   return (
-    <div className="h-[338px] p-6 bg-white">
-      <div className="flex justify-between items-center mb-4">
+    <div className="min-h-[338px] h-full p-4 sm:p-6 bg-indigo-50 rounded-xl border border-indigo-100">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-3">
         <h3 className="text-lg font-semibold text-gray-800">Calendrier d'activité</h3>
         <button className="px-4 py-2 bg-gray-50 hover:bg-gray-100 transition-all rounded-lg text-sm flex items-center gap-2">
           2024 <ChevronDown size={16} />
         </button>
       </div>
-      <div className="bg-white p-4"> {/* Removed any fixed heights or overflow-hidden classes */}
+      <div className="h-[calc(100%-48px)] overflow-x-auto">
         <div className="flex justify-between items-center mb-4">
           <p className="font-semibold text-gray-800 text-md">Février, 2024</p>
           <div className="flex gap-3">

@@ -8,33 +8,3 @@ body {
   background: white;
 }
 
-/* Webkit scrollbar styles */
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: #f3f4f6;
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #e0e7ff;
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #c7d2fe;
-}
-
-/* Add smooth transitions */
-.transition-all {
-  transition-duration: 300ms;
-}
-
-/* Glass effect utilities */
-.glass-effect {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(8px);
-}
-

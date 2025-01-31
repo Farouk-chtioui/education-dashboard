@@ -19,40 +19,31 @@ const Dashboard = () => {
           <Header />
           <StatsOverview />
 
-          {/* Main Content Grid - Aligned with StatsOverview's 3 columns */}
-          <div className="grid grid-cols-3 gap-6 mt-6 px-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
             {/* Class Progress - First column */}
-            <div className="bg-white rounded-2xl shadow-sm h-[700px] p-6">
+            <div className="h-[600px] lg:h-[700px] bg-indigo-50 rounded-xl border border-indigo-100">
               <ClassProgress />
             </div>
 
-            {/* Activity Calendar and Students - Second column */}
-            <div className="flex flex-col gap-6">
-              <div className="bg-white rounded-2xl shadow-sm">
-                <ActivityCalendar 
-                  onDateSelect={setSelectedDate} 
-                  selectedDate={selectedDate} 
-                />
-              </div>
-              <div className="bg-white rounded-2xl shadow-sm">
-                <StudentsByDate date={selectedDate} />
-              </div>
+            {/* Middle column - Calendar and Students */}
+            <div className="flex flex-col lg:grid lg:grid-rows-2 gap-6">
+              <ActivityCalendar 
+                onDateSelect={setSelectedDate} 
+                selectedDate={selectedDate}
+              />
+              <StudentsByDate date={selectedDate} />
             </div>
 
-            {/* Right Section - Third column */}
-            <div className="flex flex-col gap-6">
-              <div className="rounded-2xl shadow-sm">
-                <ActivityChart />
-              </div>
-              <div className="rounded-2xl shadow-sm">
-                <TopScores />
-              </div>
+            {/* Right column - Activity Chart and Top Scores */}
+            <div className="flex flex-col lg:grid lg:grid-rows-2 gap-6">
+              <ActivityChart />
+              <TopScores />
             </div>
           </div>
 
-          {/* Bottom Sections - Also using 3 columns */}
-          <div className="mt-6 grid grid-cols-3 gap-6 px-6">
-            <div className="col-span-2 bg-white rounded-2xl shadow-sm h-[300px]">
+          {/* Bottom Sections */}
+          <div className="mt-6 grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div className="col-span-1 lg:col-span-2 bg-white rounded-2xl shadow-sm h-[300px]">
               {/* Bottom left content */}
             </div>
             <div className="bg-white rounded-2xl shadow-sm h-[300px]">

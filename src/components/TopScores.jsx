@@ -26,8 +26,8 @@ const TopScores = () => {
   const placements = ['1er', '2ème', '3ème'];
 
   return (
-    <div className="h-[338px] p-6 bg-indigo-700 text-white border border-white/20 rounded-xl">
-      <div className="flex items-center justify-between mb-6">
+    <div className="min-h-[338px] h-full p-4 sm:p-6 bg-indigo-700 text-white border border-white/20 rounded-xl">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-3">
         <h3 className="text-lg font-semibold tracking-wide">Top Scores</h3>
         <select className="text-sm bg-indigo-700 text-white rounded-lg px-3 py-1.5 border border-white/10">
           <option>2024 - 2025</option>
@@ -36,7 +36,7 @@ const TopScores = () => {
           <option>2021 - 2022</option>
         </select>
       </div>
-      <div className="h-[calc(100%-60px)] grid grid-cols-3 gap-4">
+      <div className="h-[calc(100%-48px)] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {scores.map((student, index) => (
           <div key={index} className={`flex flex-col items-center ${student.color} rounded-xl p-6 shadow-lg`}> 
             <div className="relative mb-3">
