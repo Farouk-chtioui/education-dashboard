@@ -4,7 +4,7 @@ const ActivityCalendar = ({ onDateSelect, selectedDate }) => {
   const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   
   return (
-    <div className="p-6 bg-white rounded-lg shadow-md w-full">
+    <div className="h-[338px] p-6 bg-white">
       <div className="flex justify-between items-center mb-4">
         <h3 className="text-lg font-semibold text-gray-800">Calendrier d'activité</h3>
         <button className="px-4 py-2 bg-gray-50 hover:bg-gray-100 transition-all rounded-lg text-sm flex items-center gap-2">

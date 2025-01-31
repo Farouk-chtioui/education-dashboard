@@ -17,8 +17,8 @@ const StudentsByDate = ({ date }) => {
   ];
 
   return (
-    <div className="flex flex-col p-6 bg-white">
-      <div className="flex justify-between items-center mb-4 flex-none">
+    <div className="h-[338px] p-6 bg-white">
+      <div className="flex justify-between items-center mb-4">
         <h3 className="text-xl font-semibold text-gray-800">
           Élèves du {formattedDate}
         </h3>
@@ -26,7 +26,7 @@ const StudentsByDate = ({ date }) => {
           {students.length} Élèves
         </span>
       </div>
-      <div className="space-y-3 pr-2">
+      <div className="h-[calc(100%-60px)] overflow-y-auto space-y-3 pr-2">
         {students.map(student => (
           <div key={student.id} className="flex items-center justify-between p-4 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors">
             <div className="flex items-center gap-4">

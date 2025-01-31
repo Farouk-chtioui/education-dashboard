@@ -1,33 +1,62 @@
-import { ChevronDown } from 'lucide-react';
+const TopScores = () => {
+  const scores = [
+    { 
+      name: 'Jane Cooper', 
+      score: 99.99, 
+      school: 'St.Javidar School',
+      image: 'https://randomuser.me/api/portraits/women/44.jpg',
+      color: 'bg-green-500 text-white'
+    },
+    { 
+      name: 'Eleanor Pena', 
+      score: 99.76, 
+      school: 'Polar School',
+      image: 'https://randomuser.me/api/portraits/men/46.jpg',
+      color: 'bg-purple-500 text-white'
+    },
+    { 
+      name: 'Devon Lane', 
+      score: 99.50, 
+      school: 'Polar School',
+      image: 'https://randomuser.me/api/portraits/women/45.jpg',
+      color: 'bg-orange-500 text-white'
+    }
+  ];
 
-const TopScores = () => (
-    <div className="p-6">
-      <div className="flex justify-between items-center mb-6">
-        <h3 className="text-xl font-semibold text-gray-800">Top Scores</h3>
-        <button className="px-4 py-2 bg-gray-50 hover:bg-gray-100 transition-colors duration-200 rounded-xl text-sm flex items-center gap-2 text-gray-700">
-          2018 - 2019 <ChevronDown size={16} />
-        </button>
+  const placements = ['1er', '2ème', '3ème'];
+
+  return (
+    <div className="h-[338px] p-6 bg-indigo-700 text-white border border-white/20 rounded-xl">
+      <div className="flex items-center justify-between mb-6">
+        <h3 className="text-lg font-semibold tracking-wide">Top Scores</h3>
+        <select className="text-sm bg-indigo-700 text-white rounded-lg px-3 py-1.5 border border-white/10">
+          <option>2024 - 2025</option>
+          <option>2023 - 2024</option>
+          <option>2022 - 2023</option>
+          <option>2021 - 2022</option>
+        </select>
       </div>
-      <div className="grid grid-cols-3 gap-6">
-        {[
-          { name: 'Jane Cooper', school: 'St. James School', score: '99.99%', color: 'bg-emerald-400' },
-          { name: 'Eleanor Pena', school: 'Polar School', score: '99.76%', color: 'bg-indigo-500' },
-          { name: 'Devon Lane', school: 'Polar School', score: '99.50%', color: 'bg-orange-400' },
-        ].map((student, index) => (
-          <div 
-            key={index} 
-            className={`${student.color} p-6 rounded-xl text-white transform hover:scale-105 transition-all duration-200`}
-          >
-            <div className="mb-3">
-              <img src="/api/placeholder/48/48" alt={student.name} className="w-12 h-12 rounded-xl" />
+      <div className="h-[calc(100%-60px)] grid grid-cols-3 gap-4">
+        {scores.map((student, index) => (
+          <div key={index} className={`flex flex-col items-center ${student.color} rounded-xl p-6 shadow-lg`}> 
+            <div className="relative mb-3">
+              <img 
+                src={student.image}
+                alt={student.name}
+                className="w-24 h-24 rounded-full ring-4 ring-white/20"
+              />
             </div>
-            <h4 className="text-lg font-semibold">{student.name}</h4>
-            <p className="text-sm opacity-90">{student.school}</p>
-            <p className="text-2xl font-bold mt-3">{student.score}</p>
+            <h4 className="font-medium text-white text-center mt-2 text-lg">{student.name}</h4>
+            <p className="text-sm text-white/80">{student.school}</p>
+            <p className="text-2xl font-bold mt-2">{student.score}%</p>
+            <div className="mt-3 bg-white/30 px-6 py-2 rounded-full font-semibold text-sm text-black">
+              {placements[index]}
+            </div>
           </div>
         ))}
       </div>
     </div>
   );
+};
 
 export default TopScores;

@@ -25,13 +25,13 @@ const ClassProgress = () => {
   ];
 
   return (
-    <div className="w-full h-screen max-h-[600px] flex flex-col">
+    <div className="w-full h-full flex flex-col">
       <div className="p-6 pb-2">
         <h3 className="text-lg font-semibold text-gray-800">Progrès des Classes</h3>
       </div>
-      <div className="flex-1 px-6 relative">
+      <div className="flex-1 px-6 overflow-hidden relative">
         <div className="absolute inset-0 overflow-y-auto scrollbar-thin scrollbar-track-gray-100 scrollbar-thumb-gray-300">
-          <div className="space-y-3 pr-2">
+          <div className="space-y-3 pr-2 pb-4">
             {classes.map((classe, index) => (
               <div 
                 key={`${classe.name}-${index}`} 
