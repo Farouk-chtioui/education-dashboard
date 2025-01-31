@@ -1,7 +1,22 @@
 import { Chart as ChartJS } from 'chart.js/auto';
 import { Bar } from 'react-chartjs-2';
 import { ChevronDown } from 'lucide-react';
+import { useEffect, useRef } from 'react';
+
 const ActivityChart = () => {
+  const chartRef = useRef(null);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (chartRef.current) {
+        chartRef.current.resize();
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   const data = {
     labels: ['SAT', 'SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI'],
     datasets: [{
@@ -15,6 +30,7 @@ const ActivityChart = () => {
   const options = {
     responsive: true,
     maintainAspectRatio: false,
+    devicePixelRatio: 2, // Add this to improve resolution
     plugins: {
       legend: { display: false }
     },
@@ -35,8 +51,9 @@ const ActivityChart = () => {
           cette semaine <ChevronDown size={16} />
         </button>
       </div>
-      <div className="h-[calc(100%-48px)] w-full">
+      <div className="h-[260px] w-full" style={{ maxHeight: '260px' }}>
         <Bar 
+          ref={chartRef}
           data={data} 
           options={{
             ...options,
@@ -44,7 +61,6 @@ const ActivityChart = () => {
             responsive: true,
             layout: {
               padding: 0
-              
             },
             plugins: {
               ...options.plugins,
@@ -58,7 +74,9 @@ const ActivityChart = () => {
               }
             }
           }}
-          style={{ height: '100%', width: '100%' }}
+          height={260} // Fixed height
+          width="100%"
+          style={{ maxHeight: '260px' }}
         />
       </div>
     </div>

@@ -25,21 +25,21 @@ const ClassProgress = () => {
   ];
 
   return (
-    <div className="w-full h-full flex flex-col">
+    <div className="w-full h-full flex flex-col bg-white rounded-xl shadow-sm">
       <div className="p-6 pb-2">
         <h3 className="text-lg font-semibold text-gray-800">Progrès des Classes</h3>
       </div>
-      <div className="flex-1 px-6 overflow-hidden relative">
-        <div className="absolute inset-0 overflow-y-auto scrollbar-thin scrollbar-track-gray-100 scrollbar-thumb-gray-300">
-          <div className="space-y-3 pr-2 pb-4">
+      <div className="flex-1 px-6 pb-6 overflow-hidden relative">
+        <div className="absolute inset-0 overflow-y-auto scrollbar-thin scrollbar-track-gray-100 scrollbar-thumb-gray-300 px-2">
+          <div className="space-y-2 pr-2 pb-4">
             {classes.map((classe, index) => (
               <div 
                 key={`${classe.name}-${index}`} 
-                className="flex items-center justify-between p-3 border rounded-lg hover:shadow-md transition-all duration-200 border-indigo-200 hover:border-indigo-300 hover:bg-indigo-50/50 h-[70px]"
+                className="flex items-center justify-between p-3.5 border-2 rounded-xl hover:shadow-md transition-all duration-200 border-indigo-200 hover:border-indigo-300 hover:bg-indigo-50/50 h-[75px] bg-white"
               >
                 <div>
                   <p className="text-md font-semibold text-gray-800">{classe.name}</p>
-                  <p className="text-gray-500 text-sm">{classe.students} Élèves</p>
+                  <p className="text-gray-500 text-sm mt-1">{classe.students} Élèves</p>
                 </div>
                 <ProgressCircle percentage={classe.progress} />
               </div>
