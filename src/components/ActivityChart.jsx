@@ -35,7 +35,7 @@ const ActivityChart = () => {
           cette semaine <ChevronDown size={16} />
         </button>
       </div>
-      <div className="h-[250px] lg:h-[calc(100%-48px)]">
+      <div className="h-[calc(100%-48px)] w-full">
         <Bar 
           data={data} 
           options={{
@@ -44,6 +44,7 @@ const ActivityChart = () => {
             responsive: true,
             layout: {
               padding: 0
+              
             },
             plugins: {
               ...options.plugins,
@@ -57,7 +58,7 @@ const ActivityChart = () => {
               }
             }
           }}
-   
+          style={{ height: '100%', width: '100%' }}
         />
       </div>
     </div>
