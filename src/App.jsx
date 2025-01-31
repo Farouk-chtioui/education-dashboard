@@ -1,17 +1,38 @@
-import { lazy, Suspense } from 'react';
-const Dashboard = lazy(() => import('./components/layouts/DashboardLayout'));
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import DashboardLayout from './components/layouts/DashboardLayout';
+import Classes from './pages/Classes';
+import Login from './pages/login';
+import ProtectedRoute from './components/ProtectedRoute';
+import PublicRoute from './components/PublicRoute';
+import { AuthProvider } from './context/AuthContext';
 
 function App() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-600 via-indigo-100 to-indigo-50">
-      <Suspense fallback={
-        <div className="flex items-center justify-center min-h-screen">
-          <div className="w-12 h-12 border-4 border-indigo-600 border-t-transparent rounded-full animate-spin"/>
-        </div>
-      }>
-        <Dashboard />
-      </Suspense>
-    </div>
+    <AuthProvider>
+      <div className="min-h-screen">
+        <Router>
+          <Routes>
+            <Route path="/login" element={
+              <PublicRoute>
+                <Login />
+              </PublicRoute>
+            } />
+            <Route path="/" element={
+              <ProtectedRoute>
+                <DashboardLayout />
+              </ProtectedRoute>
+            }>
+              <Route index element={<Navigate to="/stats" replace />} />
+              <Route path="/stats" element={null} />
+              <Route path="/classes" element={<Classes />} />
+              <Route path="/games" element={<div>Games Page</div>} />
+              <Route path="/courses" element={<div>Courses Page</div>} />
+            </Route>
+            <Route path="*" element={<Navigate to="/login" replace />} />
+          </Routes>
+        </Router>
+      </div>
+    </AuthProvider>
   );
 }
 
