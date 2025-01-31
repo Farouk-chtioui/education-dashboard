@@ -32,7 +32,7 @@ const Students = () => {
           </div>
         ))}
       </div>
-      <style jsx>{`
+      <style data-jsx="true">{`
         .custom-scrollbar::-webkit-scrollbar {
           width: 4px;
         }

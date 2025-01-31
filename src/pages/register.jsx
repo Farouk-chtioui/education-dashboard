@@ -1,23 +1,14 @@
-import { useState, useEffect } from 'react';
-import { useNavigate, useLocation, Link } from 'react-router-dom';
+import { useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
-const Login = () => {
+const Register = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [rememberMe, setRememberMe] = useState(false);
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
-  const { setIsAuthenticated, isAuthenticated } = useAuth();
-  const location = useLocation();
-  const from = location.state?.from || '/stats';
-
-  useEffect(() => {
-    if (isAuthenticated) {
-      navigate(from, { replace: true });
-    }
-  }, [isAuthenticated, navigate, from]);
+  const { setIsAuthenticated } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -25,33 +16,30 @@ const Login = () => {
     setIsLoading(true);
 
     try {
-      const response = await fetch('http://localhost:3001/auth/login', {
+      const response = await fetch('http://localhost:3001/auth/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        credentials: 'include',
         body: JSON.stringify({ email: email.trim(), password }),
       });
 
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.message || 'Authentication failed');
+        throw new Error(data.message || 'Registration failed');
       }
 
+      // Store token and user id in localStorage
       localStorage.setItem('token', data.token);
       localStorage.setItem('userId', data.userId);
-      if (rememberMe) {
-        localStorage.setItem('rememberMe', 'true');
-      }
 
+      // Set authentication state and navigate
       setIsAuthenticated(true);
-      navigate(from, { replace: true });
+      navigate('/stats', { replace: true });
     } catch (err) {
-      console.error('Login error:', err);
-      setError('Invalid credentials');
-      setIsAuthenticated(false);
+      console.error('Registration error:', err);
+      setError(err.message || 'Registration failed');
     } finally {
       setIsLoading(false);
     }
@@ -61,13 +49,12 @@ const Login = () => {
     <div className="min-h-screen bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center p-6">
       <div className="bg-white rounded-lg shadow-xl p-8 w-full max-w-md">
         <div className="mb-6 text-center">
-          {/* Replace with your own logo */}
           <img src="/logo.png" alt="Logo" className="mx-auto h-12 w-auto" />
           <h2 className="mt-2 text-3xl font-bold text-gray-900">
-            Sign in to your account
+            Create your account
           </h2>
           <p className="mt-2 text-sm text-gray-600">
-            Welcome back! Please enter your credentials.
+            Join us today! Please enter your details.
           </p>
         </div>
         <form onSubmit={handleSubmit} className="space-y-6">
@@ -103,25 +90,6 @@ const Login = () => {
               />
             </div>
           </div>
-          <div className="flex items-center justify-between">
-            <div className="flex items-center">
-              <input
-                id="remember_me"
-                type="checkbox"
-                checked={rememberMe}
-                onChange={(e) => setRememberMe(e.target.checked)}
-                className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
-              />
-              <label htmlFor="remember_me" className="ml-2 block text-sm text-gray-900">
-                Remember me
-              </label>
-            </div>
-            <div className="text-sm">
-              <a href="/forgot-password" className="font-medium text-blue-600 hover:text-blue-500">
-                Forgot your password?
-              </a>
-            </div>
-          </div>
           {error && (
             <div className="text-red-500 text-sm text-center">
               {error}
@@ -133,15 +101,15 @@ const Login = () => {
               disabled={isLoading}
               className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 transition duration-150"
             >
-              {isLoading ? 'Signing in...' : 'Sign in'}
+              {isLoading ? 'Creating account...' : 'Create account'}
             </button>
           </div>
         </form>
         <div className="mt-6 text-center">
           <p className="text-sm text-gray-600">
-            Don't have an account?{' '}
-            <Link to="/register" className="font-medium text-blue-600 hover:text-blue-500">
-              Sign up
+            Already have an account?{' '}
+            <Link to="/login" className="font-medium text-blue-600 hover:text-blue-500">
+              Sign in
             </Link>
           </p>
         </div>
@@ -150,4 +118,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;
