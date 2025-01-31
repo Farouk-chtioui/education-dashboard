@@ -1,7 +1,7 @@
 import { Search, Calendar, Gamepad as GamepadIcon, BookOpen, BarChart3, LogOut } from 'lucide-react';
 
 const Sidebar = () => (
-    <div className="w-72 bg-white p-6 shadow-sm">
+    <div className="w-72 bg-white min-h-screen p-6 shadow-sm">
       <div className="flex justify-center mb-8 relative">
         <div className="relative">
           <div className="absolute -z-10 w-12 h-12 bg-indigo-300 rounded-xl transform rotate-6 left-1/2 -translate-x-1/2"></div>
@@ -11,7 +11,7 @@ const Sidebar = () => (
           </div>
         </div>
       </div>
-      <div className="bg-gradient-to-r from-indigo-600 to-indigo-700 text-white rounded-xl p-4 flex items-center gap-4 mb-6 shadow-lg relative">
+      <div className="bg-gradient-to-r from-indigo-600 to-indigo-700 text-white rounded-xl p-4 flex items-center gap-4 mb-6 shadow-lg relative overflow-hidden">
         <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-500 rounded-full transform translate-x-16 -translate-y-16 opacity-20"></div>
         <img 
           src="https://randomuser.me/api/portraits/men/32.jpg" 
