@@ -1,14 +1,14 @@
 import { useState } from 'react';
 import { Plus, Users, Search, Trophy } from 'lucide-react';
 import PageContainer from '../components/PageContainer';
-import { useAuth } from '../context/AuthContext'; // Add this import
+import { useAuth } from '../context/AuthContext'; //Maybe to be removed if i dont want backend 
 
 const Classes = () => {
   const [classes, setClasses] = useState([]);
   const [showAddModal, setShowAddModal] = useState(false);
   const [showQuizModal, setShowQuizModal] = useState(false);
   const [search, setSearch] = useState('');
-  const { user } = useAuth(); // Add this
+  const { user } = useAuth(); 
 
   const handleManageStudents = (classe) => {
     if (!user) return;
