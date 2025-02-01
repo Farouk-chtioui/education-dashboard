@@ -6,7 +6,7 @@ import ActivityCalendar from './ActivityCalendar';
 import ActivityChart from './ActivityChart';
 import TopScores from './TopScores';
 import Students from './Students';
-import PageContainer from './PageContainer';
+import PageContainer from '../PageContainer';
 
 const Header = memo(({ title = "Statistiques" }) => {
   const [isFullscreen, setIsFullscreen] = useState(false);

@@ -14,7 +14,6 @@ const ProtectedRoute = ({ children }) => {
   }
 
   if (!isAuthenticated) {
-    // Save the attempted location
     return <Navigate to="/login" state={{ from: location.pathname }} replace />;
   }
 

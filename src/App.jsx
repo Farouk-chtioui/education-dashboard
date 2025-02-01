@@ -5,10 +5,10 @@ import Register from './pages/register';
 import ProtectedRoute from './components/ProtectedRoute';
 import PublicRoute from './components/PublicRoute';
 import { AuthProvider } from './context/AuthContext';
-import QuizGame from './components/QuizGame';
+import QuizGame from './components/Game/QuizGame';
 import { ErrorBoundary } from 'react-error-boundary';
-import Stats from './components/Stats';
-import Layout from './components/Layout';
+import Stats from './components/Statstics/Stats';
+import Layout from './components/layout/Layout';
 import PageContainer from './components/PageContainer';
 
 function ErrorFallback({ error }) {

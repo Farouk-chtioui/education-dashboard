@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import QuizSetup from './QuizSetup';
 import QuizResults from './QuizResults';
-import PageContainer from './PageContainer';
+import PageContainer from '../PageContainer';
 
 // Fallback questions in case API fails
 const fallbackQuestions = [

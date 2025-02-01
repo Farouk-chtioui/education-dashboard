@@ -14,12 +14,10 @@ const ActivityCalendar = ({ onDateSelect, selectedDates = [] }) => {
     const lastDay = new Date(year, month + 1, 0);
     const daysArray = [];
     
-    // Add padding for first week
     for (let i = 0; i < firstDay.getDay(); i++) {
       daysArray.push(null);
     }
     
-    // Add actual days
     for (let i = 1; i <= lastDay.getDate(); i++) {
       daysArray.push(new Date(year, month, i));
     }
@@ -56,16 +54,13 @@ const ActivityCalendar = ({ onDateSelect, selectedDates = [] }) => {
       ? selectedDates.filter(d => d.getTime() !== date.getTime())
       : [...selectedDates, date].sort((a, b) => a - b);
     
-    onDateSelect(newDates); // Pass the entire array back to parent
+    onDateSelect(newDates);
   };
 
-  // Mock user activity data - replace with real data
   const userActivities = {
-    // timestamp: activity count
     '2024-02-15': 5,
     '2024-02-14': 3,
     '2024-02-10': 8,
-    // Add more dates...
   };
 
   const getActivityLevel = (date) => {

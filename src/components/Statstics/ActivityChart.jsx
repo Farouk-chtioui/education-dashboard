@@ -30,7 +30,7 @@ const ActivityChart = () => {
   const options = {
     responsive: true,
     maintainAspectRatio: false,
-    devicePixelRatio: 2, // Add this to improve resolution
+    devicePixelRatio: 2, 
     plugins: {
       legend: { display: false }
     },

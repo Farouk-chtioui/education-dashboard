@@ -10,15 +10,12 @@ const Classes = () => {
   const [search, setSearch] = useState('');
   const { user } = useAuth(); // Add this
 
-  // Add error handling for profile access
   const handleManageStudents = (classe) => {
     if (!user) return;
-    // ... handle manage students
   };
 
   const handleStartQuiz = (classe) => {
     if (!user) return;
-    // ... handle start quiz
   };
 
   return (

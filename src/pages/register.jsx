@@ -30,11 +30,9 @@ const Register = () => {
         throw new Error(data.message || 'Registration failed');
       }
 
-      // Store token and user id in localStorage
       localStorage.setItem('token', data.token);
       localStorage.setItem('userId', data.userId);
 
-      // Set authentication state and navigate
       setIsAuthenticated(true);
       navigate('/stats', { replace: true });
     } catch (err) {

@@ -61,7 +61,6 @@ const Login = () => {
     <div className="min-h-screen bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center p-6">
       <div className="bg-white rounded-lg shadow-xl p-8 w-full max-w-md">
         <div className="mb-6 text-center">
-          {/* Replace with your own logo */}
           <img src="/logo.png" alt="Logo" className="mx-auto h-12 w-auto" />
           <h2 className="mt-2 text-3xl font-bold text-gray-900">
             Sign in to your account
