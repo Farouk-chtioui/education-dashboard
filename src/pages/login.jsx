@@ -2,6 +2,11 @@ import { useState, useEffect } from 'react';
 import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
+// Mock credentials for development
+const MOCK_EMAIL = 'test@example.com';
+const MOCK_PASSWORD = 'password123';
+const IS_DEV_MODE = process.env.NODE_ENV === 'development';
+
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -25,6 +30,24 @@ const Login = () => {
     setIsLoading(true);
 
     try {
+      // In development mode, only check mock credentials
+      if (IS_DEV_MODE) {
+        if (email === MOCK_EMAIL && password === MOCK_PASSWORD) {
+          localStorage.setItem('token', 'mock-token');
+          localStorage.setItem('userId', 'mock-user-id');
+          if (rememberMe) {
+            localStorage.setItem('rememberMe', 'true');
+          }
+          setIsAuthenticated(true);
+          navigate(from, { replace: true });
+        } else {
+          setError('Invalid credentials');
+          setIsAuthenticated(false);
+        }
+        setIsLoading(false);
+        return;
+      }
+
       const response = await fetch('http://localhost:3001/auth/login', {
         method: 'POST',
         headers: {
@@ -60,6 +83,13 @@ const Login = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center p-6">
       <div className="bg-white rounded-lg shadow-xl p-8 w-full max-w-md">
+        {IS_DEV_MODE && (
+          <div className="mb-4 p-2 bg-yellow-100 border border-yellow-400 rounded text-sm text-yellow-800">
+            <p>Development Mode</p>
+            <p>Mock Email: {MOCK_EMAIL}</p>
+            <p>Mock Password: {MOCK_PASSWORD}</p>
+          </div>
+        )}
         <div className="mb-6 text-center">
           <img src="/logo.png" alt="Logo" className="mx-auto h-12 w-auto" />
           <h2 className="mt-2 text-3xl font-bold text-gray-900">
