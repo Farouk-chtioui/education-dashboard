@@ -1,5 +1,12 @@
-import { Expand, ChevronDown } from 'lucide-react';
 import { useState, useCallback, useEffect, memo } from 'react';
+import { Expand, ChevronDown } from 'lucide-react';
+import StatsOverview from './StatsOverview';
+import ClassProgress from './ClassProgress';
+import ActivityCalendar from './ActivityCalendar';
+import ActivityChart from './ActivityChart';
+import TopScores from './TopScores';
+import Students from './Students';
+import PageContainer from './PageContainer';
 
 const Header = memo(({ title = "Statistiques" }) => {
   const [isFullscreen, setIsFullscreen] = useState(false);
@@ -47,4 +54,45 @@ const Header = memo(({ title = "Statistiques" }) => {
 });
 
 Header.displayName = 'Header';
-export default Header;
+
+const Stats = () => {
+  const [selectedDates, setSelectedDates] = useState([new Date()]);
+
+  const handleDateSelect = (dates) => {
+    setSelectedDates(dates);
+  };
+
+  const renderStatsContent = () => (
+    <div className="bg-gray-100 p-5 rounded-2xl border-4 border-purple-600 shadow-xl">
+      <Header />
+      <div className="bg-white p-4 rounded-xl">
+        <StatsOverview />
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 lg:gap-5 mt-4 sm:mt-5">
+        <div className="h-[500px] lg:h-[600px] bg-white rounded-xl border border-purple-300 shadow-lg">
+          <ClassProgress />
+        </div>
+        <div className="flex flex-col gap-3 sm:gap-4 lg:gap-5 z-0">
+          <ActivityCalendar 
+            onDateSelect={handleDateSelect} 
+            selectedDates={selectedDates}
+            className="bg-white rounded-xl border border-purple-300 shadow-lg"
+          />
+          <Students />
+        </div>
+        <div className="flex flex-col gap-3 sm:gap-4 lg:gap-5">
+          <ActivityChart className="bg-white rounded-xl border border-purple-300 shadow-lg" />
+          <TopScores className="bg-white rounded-xl border border-purple-300 shadow-lg" />
+        </div>
+      </div>
+    </div>
+  );
+
+  return (
+    <PageContainer>
+      {renderStatsContent()}
+    </PageContainer>
+  );
+};
+
+export default Stats;

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import QuizSetup from './QuizSetup';
 import QuizResults from './QuizResults';
+import PageContainer from './PageContainer';
 
 // Fallback questions in case API fails
 const fallbackQuestions = [
@@ -145,17 +146,23 @@ const QuizGame = () => {
   };
 
   if (gameState === 'setup') {
-    return <QuizSetup onStart={handleStart} />;
+    return (
+      <PageContainer>
+        <QuizSetup onStart={handleStart} />
+      </PageContainer>
+    );
   }
 
   if (gameState === 'completed') {
     return (
-      <QuizResults
-        score={score}
-        totalQuestions={questions.length}
-        previousScores={previousScores}
-        onRestart={handleRestart}
-      />
+      <PageContainer>
+        <QuizResults
+          score={score}
+          totalQuestions={questions.length}
+          previousScores={previousScores}
+          onRestart={handleRestart}
+        />
+      </PageContainer>
     );
   }
 
@@ -188,76 +195,78 @@ const QuizGame = () => {
     .sort(() => Math.random() - 0.5);
 
   return (
-    <div className={themes[selectedTheme].container}>
-      <div className="mb-4 flex justify-end space-x-2">
-        {Object.keys(themes).map((theme) => (
-          <button
-            key={theme}
-            onClick={() => setSelectedTheme(theme)}
-            className={`px-3 py-1 rounded-full text-sm ${
-              selectedTheme === theme 
-                ? 'bg-indigo-600 text-white' 
-                : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-            }`}
-          >
-            {theme.charAt(0).toUpperCase() + theme.slice(1)}
-          </button>
-        ))}
-      </div>
-      
-      <div className="mb-6">
-        <div className="flex justify-between items-center mb-4">
-          <span className={themes[selectedTheme].progress}>
-            Question {currentQuestion + 1}/{questions.length}
-          </span>
-          <span className={themes[selectedTheme].score}>
-            Score: {score}
-          </span>
-        </div>
-        <h3 className={`${themes[selectedTheme].question} mb-4`}
-            dangerouslySetInnerHTML={{ __html: question.question }}>
-        </h3>
-        <div className="space-y-3">
-          {answers.map((answer, index) => {
-            const isSelected = selectedAnswer === answer;
-            const isCorrect = answer === question.correct_answer;
-            
-            let buttonClass = themes[selectedTheme].button;
-            
-            if (showFeedback && isSelected) {
-              buttonClass += isCorrect 
-                ? ` ${themes[selectedTheme].correct}`
-                : ` ${themes[selectedTheme].incorrect}`;
-            }
-
-            return (
-              <button
-                key={index}
-                onClick={() => !showFeedback && handleAnswer(answer)}
-                disabled={showFeedback}
-                className={buttonClass}
-                dangerouslySetInnerHTML={{ __html: answer }}
-              />
-            );
-          })}
+    <PageContainer>
+      <div className={themes[selectedTheme].container}>
+        <div className="mb-4 flex justify-end space-x-2">
+          {Object.keys(themes).map((theme) => (
+            <button
+              key={theme}
+              onClick={() => setSelectedTheme(theme)}
+              className={`px-3 py-1 rounded-full text-sm ${
+                selectedTheme === theme 
+                  ? 'bg-indigo-600 text-white' 
+                  : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+              }`}
+            >
+              {theme.charAt(0).toUpperCase() + theme.slice(1)}
+            </button>
+          ))}
         </div>
         
-        {showFeedback && (
-          <div className="mt-4 text-center font-medium">
-            {selectedAnswer === question.correct_answer ? (
-              <span className="text-green-600">Correct!</span>
-            ) : (
-              <span className="text-red-600">
-                Incorrect! The correct answer was:{' '}
-                <span dangerouslySetInnerHTML={{ 
-                  __html: question.correct_answer 
-                }}/>
-              </span>
-            )}
+        <div className="mb-6">
+          <div className="flex justify-between items-center mb-4">
+            <span className={themes[selectedTheme].progress}>
+              Question {currentQuestion + 1}/{questions.length}
+            </span>
+            <span className={themes[selectedTheme].score}>
+              Score: {score}
+            </span>
           </div>
-        )}
+          <h3 className={`${themes[selectedTheme].question} mb-4`}
+              dangerouslySetInnerHTML={{ __html: question.question }}>
+          </h3>
+          <div className="space-y-3">
+            {answers.map((answer, index) => {
+              const isSelected = selectedAnswer === answer;
+              const isCorrect = answer === question.correct_answer;
+              
+              let buttonClass = themes[selectedTheme].button;
+              
+              if (showFeedback && isSelected) {
+                buttonClass += isCorrect 
+                  ? ` ${themes[selectedTheme].correct}`
+                  : ` ${themes[selectedTheme].incorrect}`;
+              }
+
+              return (
+                <button
+                  key={index}
+                  onClick={() => !showFeedback && handleAnswer(answer)}
+                  disabled={showFeedback}
+                  className={buttonClass}
+                  dangerouslySetInnerHTML={{ __html: answer }}
+                />
+              );
+            })}
+          </div>
+          
+          {showFeedback && (
+            <div className="mt-4 text-center font-medium">
+              {selectedAnswer === question.correct_answer ? (
+                <span className="text-green-600">Correct!</span>
+              ) : (
+                <span className="text-red-600">
+                  Incorrect! The correct answer was:{' '}
+                  <span dangerouslySetInnerHTML={{ 
+                    __html: question.correct_answer 
+                  }}/>
+                </span>
+              )}
+            </div>
+          )}
+        </div>
       </div>
-    </div>
+    </PageContainer>
   );
 };
 

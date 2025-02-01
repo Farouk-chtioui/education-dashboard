@@ -3,6 +3,7 @@ import { createContext, useContext, useState, useEffect } from 'react';
 const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
+  const [user, setUser] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(() => {
     return !!localStorage.getItem('token');
   });
@@ -62,6 +63,8 @@ export const AuthProvider = ({ children }) => {
   };
 
   const value = {
+    user,
+    setUser,
     isAuthenticated,
     setIsAuthenticated: updateAuthState,
     isLoading,

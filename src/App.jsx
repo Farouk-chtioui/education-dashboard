@@ -1,5 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import DashboardLayout from './components/layouts/DashboardLayout';
+import { createBrowserRouter, RouterProvider, Navigate } from 'react-router-dom';
 import Classes from './pages/Classes';
 import Login from './pages/login';
 import Register from './pages/register';
@@ -8,6 +7,9 @@ import PublicRoute from './components/PublicRoute';
 import { AuthProvider } from './context/AuthContext';
 import QuizGame from './components/QuizGame';
 import { ErrorBoundary } from 'react-error-boundary';
+import Stats from './components/Stats';
+import Layout from './components/Layout';
+import PageContainer from './components/PageContainer';
 
 function ErrorFallback({ error }) {
   return (
@@ -20,38 +22,56 @@ function ErrorFallback({ error }) {
   );
 }
 
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <ProtectedRoute><Layout><Navigate to="/stats" replace /></Layout></ProtectedRoute>
+  },
+  {
+    path: '/stats',
+    element: <ProtectedRoute><Layout><Stats /></Layout></ProtectedRoute>
+  },
+  {
+    path: '/classes',
+    element: <ProtectedRoute><Layout><Classes /></Layout></ProtectedRoute>
+  },
+  {
+    path: '/games',
+    element: <ProtectedRoute><Layout><QuizGame /></Layout></ProtectedRoute>
+  },
+  {
+    path: '/courses',
+    element: (
+      <ProtectedRoute>
+        <Layout>
+          <PageContainer>
+            <div className="bg-white p-6 rounded-xl shadow-lg">
+              Courses Page
+            </div>
+          </PageContainer>
+        </Layout>
+      </ProtectedRoute>
+    )
+  },
+  {
+    path: '/login',
+    element: <PublicRoute><Login /></PublicRoute>
+  },
+  {
+    path: '/register',
+    element: <PublicRoute><Register /></PublicRoute>
+  },
+  {
+    path: '*',
+    element: <Navigate to="/login" replace />
+  }
+]);
+
 function App() {
   return (
     <ErrorBoundary FallbackComponent={ErrorFallback}>
       <AuthProvider>
-        <div className="min-h-screen">
-          <Router>
-            <Routes>
-              <Route path="/login" element={
-                <PublicRoute>
-                  <Login />
-                </PublicRoute>
-              } />
-              <Route path="/register" element={
-                <PublicRoute>
-                  <Register />
-                </PublicRoute>
-              } />
-              <Route path="/" element={
-                <ProtectedRoute>
-                  <DashboardLayout />
-                </ProtectedRoute>
-              }>
-                <Route index element={<Navigate to="/stats" replace />} />
-                <Route path="/stats" element={null} />
-                <Route path="/classes" element={<Classes />} />
-                <Route path="/games" element={<QuizGame/>} />
-                <Route path="/courses" element={<div>Courses Page</div>} />
-              </Route>
-              <Route path="*" element={<Navigate to="/login" replace />} />
-            </Routes>
-          </Router>
-        </div>
+        <RouterProvider router={router} />
       </AuthProvider>
     </ErrorBoundary>
   );
